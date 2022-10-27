@@ -108,7 +108,6 @@ objects:
         description: |
           The number of previous releases to retain on the channel for rollback or other
           purposes. Must be a number between 1-100. Defaults to 10 for new channels.
-        default_value: 10
       - !ruby/object:Api::Type::KeyValuePairs
         name: labels
         description: Text labels used for extra metadata and/or filtering

@@ -37,6 +37,8 @@ overrides: !ruby/object:Overrides::ResourceOverrides
     properties:
       expireTime: !ruby/object:Overrides::Terraform::PropertyOverride
         default_from_api: true # API computes value from ttl if not set directly
+      retainedReleaseCount: !ruby/object:Overrides::Terraform::PropertyOverride
+        default_from_api: true # unlimited for "live" channel created with the site, and 10 for subsequent channels
       ttl: !ruby/object:Overrides::Terraform::PropertyOverride
         ignore_read: true # API doesn't return this value
     examples:

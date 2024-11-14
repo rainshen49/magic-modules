@@ -1,0 +1,163 @@
+# Copyright 2024 Google Inc.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+---
+name: Rollout
+description: Description
+base_url: projects/{{project}}/locations/{{location}}/backends/{{backend}}/rollouts
+immutable: true
+self_link: projects/{{project}}/locations/{{location}}/backends/{{backend}}/rollouts/{{rollout_id}}
+create_url: projects/{{project}}/locations/{{location}}/backends/{{backend}}/rollouts?rolloutId={{rollout_id}}
+id_format: projects/{{project}}/locations/{{location}}/backends/{{backend}}/rollouts/{{rollout_id}}
+import_format:
+- projects/{{project}}/locations/{{location}}/backends/{{backend}}/rollouts/{{rollout_id}}
+examples:
+- name: name_of_example_file
+  primary_resource_id: example
+  vars:
+    resource_name: test-resource
+autogen_async: true
+async:
+  operation:
+    timeouts:
+      insert_minutes: 20
+      update_minutes: 20
+      delete_minutes: 20
+    base_url: '{{op_id}}'
+  actions:
+  - create
+  - delete
+  - update
+  type: OpAsync
+  result:
+    resource_inside_response: true
+  error: {}
+  include_project: false
+autogen_status: Um9sbG91dA==
+parameters:
+- name: location
+  type: String
+  description: Resource ID segment making up resource `name`. It identifies the resource within its parent collection as described in https://google.aip.dev/122.
+  immutable: true
+  url_param_only: true
+  required: true
+- name: backend
+  type: String
+  description: Resource ID segment making up resource `name`. It identifies the resource within its parent collection as described in https://google.aip.dev/122.
+  immutable: true
+  url_param_only: true
+  required: true
+- name: rolloutId
+  type: String
+  description: Optional. Desired ID of the rollout being created.
+  immutable: true
+  url_param_only: true
+  required: true
+properties:
+- name: displayName
+  type: String
+  description: Optional. Human-readable name. 63 character limit.
+- name: state
+  type: String
+  description: |-
+    Output only. The state of the rollout.
+    Possible values:
+    STATE_UNSPECIFIED
+    QUEUED
+    PENDING_BUILD
+    PROGRESSING
+    PAUSED
+    SUCCEEDED
+    FAILED
+    CANCELLED
+  output: true
+- name: error
+  type: NestedObject
+  description: |-
+    The `Status` type defines a logical error model that is suitable for
+    different programming environments, including REST APIs and RPC APIs. It is
+    used by [gRPC](https://github.com/grpc). Each `Status` message contains
+    three pieces of data: error code, error message, and error details.
+
+    You can find out more about this error model and how to work with it in the
+    [API Design Guide](https://cloud.google.com/apis/design/errors).
+  properties:
+  - name: code
+    type: Integer
+    description: The status code, which should be an enum value of google.rpc.Code.
+  - name: message
+    type: String
+    description: |-
+      A developer-facing error message, which should be in English. Any
+      user-facing error message should be localized and sent in the
+      google.rpc.Status.details field, or localized by the client.
+  - name: details
+    type: Array
+    description: |-
+      A list of messages that carry the error details.  There is a common set of
+      message types for APIs to use.
+    item_type:
+      type: NestedObject
+- name: reconciling
+  type: Boolean
+  description: Output only. A field that, if true, indicates that the Rollout currently has an LRO.
+  output: true
+- name: labels
+  type: KeyValueLabels
+  description: |-
+    Optional. Unstructured key value map that can be used to organize and categorize
+    objects.
+- name: annotations
+  type: KeyValuePairs
+  description: |-
+    Optional. Unstructured key value map that may be set by external tools to
+    store and arbitrary metadata. They are not queryable and should be
+    preserved when modifying objects.
+- name: uid
+  type: String
+  description: Output only. System-assigned, unique identifier.
+  output: true
+- name: name
+  type: String
+  description: |-
+    Identifier. The resource name of the rollout.
+
+    Format:
+
+    `projects/{project}/locations/{locationId}/backends/{backendId}/rollouts/{rolloutId}`.
+  output: true
+- name: build
+  type: String
+  description: |-
+    Immutable. The name of a build that already exists. It doesn't have to be
+    built; a rollout will wait for a build to be ready before updating
+    traffic.
+  immutable: true
+- name: createTime
+  type: String
+  description: Output only. Time at which the rollout was created.
+  output: true
+- name: updateTime
+  type: String
+  description: Output only. Time at which the rollout was last updated.
+  output: true
+- name: deleteTime
+  type: String
+  description: Output only. Time at which the rollout was deleted.
+  output: true
+- name: etag
+  type: String
+  description: |-
+    Output only. Server-computed checksum based on other values; may be sent
+    on update or delete to ensure operation is done on expected resource.
+  output: true
